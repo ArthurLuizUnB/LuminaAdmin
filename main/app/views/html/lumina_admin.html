@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="lumina-admin-panel">
+    <h2>Sistema de Administração de Conteúdo</h2>
+    <p class="welcome-text">Bem-vindo, {{ usuario_nome }}. Aqui você pode administrar os artigos e jornais exibidos no sistema Lumina.</p>
+
+    <form class="search-form" method="GET" action="{{ url_for('routes.admin_panel') }}">
+        <input type="text" name="search" placeholder="Buscar por título ou fonte..." value="{{ request.args.get('search', '') }}">
+        <button type="submit" class="btn">Buscar</button>
+        {% if request.args.get('search') %}
+        <a href="{{ url_for('routes.admin_panel') }}" class="btn cancel">Limpar Busca</a>
+        {% endif %}
+    </form>
+
+    <div class="add-article-section">
+        <h3>Adicionar Novo Artigo por Link</h3>
+        <form class="formulario" method="POST" action="{{ url_for('routes.admin_panel') }}">
+            <label for="link_artigo">Link do Artigo Original:</label>
+            <input type="url" id="link_artigo" name="link_artigo" placeholder="Ex: https://www.jornal.com/materia" required>
+            <button type="submit" class="btn btn-add-source">
+                <span class="emoji">➕</span> Adicionar Fonte ao Banco de Dados
+            </button>
+        </form>
+    </div>
+
+    <h3>Lista de Artigos Armazenados (Total: {{ artigos|length }})</h3>
+    
+    <div class="table-container">
+        <table class="artigos-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">ID</th>
+                    <th style="width: 35%;">Matéria (Preto)</th>
+                    <th style="width: 35%;">Link Original (Azul) / Fonte (Cinza)</th>
+                    <th style="width: 15%;">Ações (Excluir)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for artigo in artigos %}
+                <tr>
+                    <td>{{ artigo.id }}</td>
+                    <td class="article-title">{{ artigo.titulo }}</td>
+                    <td class="article-link-source">
+                        <a href="{{ artigo.link }}" target="_blank" class="link-original">{{ artigo.link }}</a>
+                        <span class="source-text">({{ artigo.fonte }})</span>
+                    </td>
+                    <td class="actions-cell">
+                        <a href="{{ url_for('routes.remover_artigo', artigo_id=artigo.id) }}" 
+                           class="btn-delete-article" 
+                           onclick="return confirm('Tem certeza que deseja remover o artigo: {{ artigo.titulo }}?')"
+                           title="Excluir Matéria (Vermelho)">
+                            <span class="emoji">❌</span>
+                        </a>
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">Nenhum artigo encontrado com o filtro atual.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

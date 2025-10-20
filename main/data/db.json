@@ -1,1 +1,22 @@
-{}
+{
+    "artigos": [
+        {
+            "id": "e44d8b6e-6997-4273-9031-64d4b3b3a325",
+            "titulo": "Inteligência Artificial: O Novo Horizonte do Mercado de Trabalho",
+            "fonte": "Jornal de Tecnologia",
+            "link": "https://www.jornaltech.com/artigo1"
+        },
+        {
+            "id": "c1a0c8b3-34e8-466d-a774-8b54f48a4789",
+            "titulo": "O Futuro da Computação em Nuvem e a Segurança de Dados Pessoais",
+            "fonte": "Site de Inovação",
+            "link": "https://www.inovacao.com/artigo2"
+        },
+        {
+            "id": "7f09a56c-0e2f-48d5-b5f7-6c84c31e21b0",
+            "titulo": "Análise do Setor de Data Science na América Latina",
+            "fonte": "Revista Científica",
+            "link": "https://www.revistacientifica.com/artigo3"
+        }
+    ]
+}
